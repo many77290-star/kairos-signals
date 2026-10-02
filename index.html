@@ -1,112 +1,317 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>KAIROS Signals</title>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#05070f">
+<title>KAIROS Signals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#04060d;--bg2:#080d1d;--panel:#0b1228;--line:#1c2850;--txt:#e2eaff;--dim:#8494c4;
---green:#25d98a;--red:#ff4d5e;--amber:#f5b83d;--cyan:#3ee4ff;--pur:#a06bff;--mono:'JetBrains Mono',Consolas,monospace}
+:root{--bg:#05070f;--bg2:#080c1a;--panel:#0b1124;--panel2:#0f1730;--line:#1a2547;--line2:#24315c;--txt:#e6ecff;--dim:#8592bd;--dim2:#5d6994;
+--green:#22d68a;--red:#ff4d61;--amber:#f5b83d;--cyan:#38e1ff;--blue:#4c7dff;--pur:#9d6bff;
+--mono:'JetBrains Mono',ui-monospace,Consolas,monospace;--r:14px}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:radial-gradient(1200px 600px at 50% -10%,#10184016,transparent),var(--bg);color:var(--txt);
-font:13px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:18px 16px 40px}
-.wrap{max-width:1280px;margin:0 auto}
-header{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-h1{font-size:22px;font-weight:800;letter-spacing:.3px;background:linear-gradient(90deg,#5b6cff,#9b3dff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.maj{color:var(--dim);font-size:11.5px}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-bottom:14px}
-.card{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}
-.c3{grid-column:span 3}.c4{grid-column:span 4}.c8{grid-column:span 8}.c12{grid-column:span 12}
-@media(max-width:1000px){.c3{grid-column:span 6}.c4,.c8{grid-column:span 12}}
-@media(max-width:640px){.c3{grid-column:span 12}}
-.card h2{font-size:13.5px;font-weight:800;margin-bottom:3px;color:#f0f4ff}
-.desc{font-size:11px;color:var(--dim);margin-bottom:10px}
-.big{font-size:27px;font-weight:700;font-family:var(--mono)}
-.pos{color:var(--green)}.neg{color:var(--red)}
-.kpi{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid var(--line)}
-.kpi:last-child{border-bottom:0}.kpi .l{color:var(--dim)}.kpi .v{font-weight:700;font-family:var(--mono);font-size:12.5px;text-align:right}
-.pill{padding:2px 9px;border-radius:20px;font-weight:700;font-size:11px;display:inline-block}
-.pill.wait{background:#33280a;color:var(--amber)}.pill.buy{background:#0c3326;color:var(--green)}.pill.sell{background:#3a1115;color:var(--red)}.pill.disc{background:#0d2a3a;color:var(--cyan)}
-.scroll{overflow-x:auto}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(1100px 520px at 50% -12%,#1a2a6a33,transparent),var(--bg);color:var(--txt);
+font:13.5px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+/* en-tête */
+.top{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#05070fee,#05070fd9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0 10px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#4c7dff,#9d3dff);display:grid;place-items:center;font-weight:800;font-size:16px;box-shadow:0 6px 22px #5b4cff55;flex:none}
+.brand h1{font-size:16.5px;font-weight:800;letter-spacing:.2px;white-space:nowrap}
+.brand small{display:block;color:var(--dim);font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:560px){.brand small{display:none}}
+.live{display:flex;align-items:center;gap:7px;color:var(--dim);font-size:11.5px;white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:p 2s infinite}
+.dot.vieux{background:var(--amber);box-shadow:0 0 10px var(--amber)}
+@keyframes p{50%{opacity:.35}}
+nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:none;border:1px solid transparent;background:none;color:var(--dim);font:600 12.5px Inter,system-ui,sans-serif;padding:7px 13px;border-radius:999px;cursor:pointer;transition:.15s}
+nav button:hover{color:var(--txt);background:#ffffff08}
+nav button[aria-selected=true]{color:#fff;background:linear-gradient(135deg,#2a3f9a,#4b2a9a);border-color:#4a5fd0;box-shadow:0 4px 16px #4b3dff33}
+main{padding:18px 0 34px}
+section{display:none;animation:in .25s ease}
+section.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2.t{font-size:15px;font-weight:800;margin:4px 0 12px;display:flex;align-items:center;gap:8px}
+h2.t .n{font:600 11px var(--mono);color:var(--dim);background:var(--panel2);border:1px solid var(--line);padding:1px 7px;border-radius:999px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-bottom:16px}
+.card{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0}
+.c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}.c12{grid-column:span 12}
+@media(max-width:1000px){.c3{grid-column:span 6}.c4,.c5,.c6,.c7,.c8{grid-column:span 12}}
+@media(max-width:620px){.c3{grid-column:span 12}.grid{gap:10px}}
+.card h3{font-size:13px;font-weight:800;margin-bottom:2px}
+.desc{font-size:11.5px;color:var(--dim);margin-bottom:12px}
+/* indicateurs */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.kpis .k:last-child{grid-column:span 2}}
+.k{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.k .l{font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.7px;font-weight:700}
+.k .v{font:700 22px var(--mono);margin-top:2px;letter-spacing:-.5px}
+.k .s{font-size:11px;color:var(--dim2)}
+.pos{color:var(--green)}.neg{color:var(--red)}.amb{color:var(--amber)}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:999px;font-weight:700;font-size:10.5px;letter-spacing:.3px;white-space:nowrap}
+.pill.buy{background:#0b3326;color:var(--green)}.pill.wait{background:#33280a;color:var(--amber)}.pill.sell{background:#3a1117;color:var(--red)}.pill.ut{background:#14204a;color:#a9b8ff}.pill.ok{background:#0b2a3a;color:var(--cyan)}
+.clair{border-left:3px solid var(--blue);background:linear-gradient(90deg,#4c7dff12,transparent);padding:12px 14px;border-radius:10px;font-size:13px}
+.clair b{color:#fff}
+/* cartes actif */
+.actifs{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+@media(max-width:620px){.actifs{grid-template-columns:1fr}}
+.a{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--r);padding:14px 15px;display:flex;flex-direction:column;gap:10px;transition:.15s}
+.a:hover{border-color:var(--line2);transform:translateY(-1px)}
+.a.trad{border-color:#24508a}
+.ah{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.ah .nm{font-size:17px;font-weight:800;letter-spacing:.3px}
+.ah .px{font:700 14px var(--mono);text-align:right}
+.ah .px small{display:block;font:500 10.5px Inter,sans-serif;color:var(--dim)}
+.cfg{font-size:12px;color:#c3cdf2}
+.lv{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.lv div{background:#0a1022;border:1px solid var(--line);border-radius:9px;padding:6px 8px;min-width:0}
+.lv span{display:block;font-size:9.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.6px;font-weight:700}
+.lv b{font:700 12.5px var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.no{font-size:11.5px;color:var(--dim);background:#0a1022;border:1px dashed var(--line2);border-radius:9px;padding:8px 10px}
+.spot{font-size:11.5px;color:var(--dim)}.spot b{color:#cfe0ff;font-family:var(--mono)}
+.lad{position:relative;height:56px;margin:2px 4px}
+.lad i,.lad b{position:absolute;display:block}
+.lad .ax{left:0;right:0;top:27px;height:2px;background:#24315c;border-radius:2px}
+.lad .dg{left:0;top:25px;height:6px;background:#ff4d6150;border-radius:3px}
+.lad .iv{top:19px;width:2px;height:18px;background:var(--red);transform:translateX(-1px)}
+.lad .zn{top:19px;height:18px;background:#4c7dff40;border:1px solid var(--blue);border-radius:4px}
+.lad .tp{top:17px;width:2px;height:22px;background:var(--green);transform:translateX(-1px)}
+.lad .px{top:22px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--bg);box-shadow:0 0 0 2px #ffffff40;transform:translateX(-6px)}
+.lad .lt{top:0;font:700 9.5px var(--mono);color:var(--green);transform:translateX(-50%)}
+.lad .lb{top:41px;font:700 9.5px Inter,sans-serif;color:#e6ecff;transform:translateX(-50%);white-space:nowrap}
+.lad .zl{color:#8fb0ff;font-weight:600}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chip{border:1px solid var(--line2);background:var(--panel);color:var(--dim);font:600 11.5px Inter,sans-serif;padding:5px 11px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed=true]{color:#fff;border-color:#4a5fd0;background:#1a2660}
+.tag{display:inline-block;font:600 11px var(--mono);background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:2px 7px;margin:2px 4px 2px 0;color:#b7c3ee}
+/* résultats */
+.st{display:flex;gap:14px;align-items:center;margin:4px 0 10px}
+.ring{width:74px;height:74px;flex:none}
+.row{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.row:last-child{border-bottom:0}.row .l{color:var(--dim)}.row .v{font:700 12.5px var(--mono)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--dim);margin-top:8px}
+.sw{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:middle}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{width:100%;border-collapse:collapse;font-size:12.5px}
-th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
-td.cfg{white-space:normal;min-width:200px}
+th,td{text-align:left;padding:8px 7px;border-bottom:1px solid var(--line);white-space:nowrap}
 th{color:var(--dim);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.8px}
 td.r,th.r{text-align:right}td.r{font-family:var(--mono);font-weight:600}
-.swatch{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:middle}
-img.proj{width:100%;display:block;border-radius:10px;border:1px solid var(--line)}
-footer{color:var(--dim);font-size:11px;margin-top:8px;line-height:1.6}
-</style></head><body><div class="wrap">
-<header><div><h1>KAIROS Signals</h1><div class="maj">Tableau en lecture seule · vagues d'Elliott + Fibonacci · risque 1 % par position</div></div>
-<div class="maj" id="maj"></div></header>
-<div class="grid">
- <div class="card c12"><h2>📐 Projection structurelle</h2>
-  <div class="desc">Configurations valides du moteur : zone d'achat, invalidation, TP1 à TP3 et trois scénarios. Des probabilités, pas des promesses.</div>
-  <a href="projection.png" target="_blank" rel="noopener"><img class="proj" src="projection.png?v=2026-10-02T204010" alt="Projection structurelle"></a></div>
- <div class="card c3" id="kZone"></div><div class="card c3" id="kStrict"></div><div class="card c3" id="kDemo"></div><div class="card c3" id="kS2"></div>
- <div class="card c8"><h2>📈 Courbe des résultats (R cumulés)</h2><div class="desc">Chaque trade clos ajoute son résultat en R (multiple du risque, frais compris).</div><div id="kCourbe"></div></div>
- <div class="card c4"><h2>⏳ Positions ouvertes (simulation)</h2><div class="desc">Labo papier et DÉMO. Stop jamais déplacé.</div><div id="kOuv"></div></div>
- <div class="card c12"><h2>🎯 Plans — Trading &amp; Spot</h2>
-  <div class="desc">Entrée ≤ entrée max (R ≥ 3) · stop = invalidation + 0,5 % · TP1/TP2/TP3 = objectifs de la méthode, sortie par parts égales · Spot = paliers d'accumulation dans la zone.</div>
-  <div class="scroll"><table id="kPlans"></table></div><div class="desc" id="kSans" style="margin-top:8px"></div></div>
- <div class="card c12"><h2>🧾 Derniers trades clos</h2><div class="scroll"><table id="kTrades"></table></div></div>
-</div>
-<footer>Éducatif, pas un conseil financier. Simulation (labo papier, DÉMO) : aucun argent réel n'est engagé par ces résultats.
-Niveaux calculés automatiquement par le moteur KAIROS ; aucune promesse de résultat. Mise à jour toutes les 4 h environ.</footer>
-</div>
+img.proj{width:100%;display:block;border-radius:10px;border:1px solid var(--line);cursor:zoom-in}
+.zoom{position:fixed;inset:0;background:#000d;z-index:50;display:none;overflow:auto;padding:12px}
+.zoom.on{display:block}.zoom img{width:1600px;max-width:none;display:block;margin:auto}
+.zoom button{position:fixed;top:12px;right:12px;background:#1a2660;color:#fff;border:1px solid #4a5fd0;border-radius:999px;padding:6px 12px;font-weight:700;cursor:pointer}
+/* méthode */
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.step{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.step i{font-style:normal;font:700 11px var(--mono);color:var(--cyan);display:block;margin-bottom:4px}
+.step h3{font-size:13.5px;margin-bottom:4px}.step p{font-size:12px;color:#b9c4ea}
+.vide{color:var(--dim);font-size:12px;padding:6px 0}
+footer{border-top:1px solid var(--line);color:var(--dim2);font-size:11px;padding:16px 0 28px;line-height:1.7}
+</style></head><body>
+<div class="top"><div class="wrap">
+ <div class="bar"><div class="brand"><div class="logo">K</div><div><h1>KAIROS Signals</h1><small>Vagues d'Elliott · Fibonacci · risque 1 % par position</small></div></div>
+  <div class="live"><span class="dot" id="dot"></span><span id="maj"></span></div></div>
+ <nav role="tablist" id="nav">
+  <button role="tab" data-t="apercu">🏠 Aperçu</button><button role="tab" data-t="signaux">🎯 Signaux</button>
+  <button role="tab" data-t="resultats">📈 Résultats</button><button role="tab" data-t="historique">🧾 Historique</button>
+  <button role="tab" data-t="methode">📘 Méthode</button></nav>
+</div></div>
+<main class="wrap">
+<section id="apercu">
+ <div class="kpis" id="kpis"></div>
+ <div class="grid">
+  <div class="card c12"><h3>💡 En clair</h3><div class="desc">La lecture du marché en une phrase, recalculée toutes les 4 h.</div><div class="clair" id="clair"></div></div>
+ </div>
+ <h2 class="t">⭐ À surveiller <span class="n" id="nTop"></span></h2>
+ <div class="actifs" id="top" style="margin-bottom:16px"></div>
+ <div class="grid"><div class="card c12"><h3>📐 Projection structurelle</h3>
+  <div class="desc">Les configurations valides du moteur sur graphique : zone d'achat, invalidation, objectifs et trois scénarios. Touchez l'image pour l'agrandir.</div>
+  <img class="proj" id="proj" src="projection.png?v=2026-10-02T204241" alt="Projection structurelle"></div></div>
+</section>
+<section id="signaux">
+ <div class="chips" id="filtres"></div>
+ <div class="actifs" id="liste"></div>
+ <div class="card" style="margin-top:16px"><h3>⚪ Sans configuration valide</h3><div class="desc">Aucun niveau n'est inventé : ces actifs n'ont pas de structure exploitable aujourd'hui.</div><div id="sans"></div></div>
+</section>
+<section id="resultats">
+ <div class="grid" id="strats"></div>
+ <div class="grid">
+  <div class="card c8"><h3>📈 Courbe des résultats</h3><div class="desc">R cumulés, trade après trade. 1 R = le montant risqué sur un trade (1 % du capital).</div><div id="courbe"></div></div>
+  <div class="card c4"><h3>🧮 Lire les résultats</h3><div class="desc">Ce qui compte, c'est le R moyen, pas seulement le winrate.</div>
+   <div class="row"><span class="l">Stop touché</span><span class="v neg">−1 R</span></div>
+   <div class="row"><span class="l">TP1 avec R = 3</span><span class="v pos">+3 R</span></div>
+   <div class="row"><span class="l">Winrate « point mort » à R = 3</span><span class="v">25 %</span></div>
+   <div class="row"><span class="l">Labo papier « zone »</span><span class="v">entrée dans la zone</span></div>
+   <div class="row"><span class="l">Labo papier « strict »</span><span class="v">+ signal confirmé</span></div>
+   <div class="row"><span class="l">Argent réel engagé</span><span class="v">aucun</span></div></div>
+ </div>
+</section>
+<section id="historique">
+ <div class="grid"><div class="card c12"><h3>⏳ Positions ouvertes (simulation)</h3><div class="desc">Stop jamais déplacé ; sorties par parts égales aux objectifs.</div><div class="scroll"><table id="ouv"></table></div></div></div>
+ <div class="chips" id="srcs"></div>
+ <div class="grid"><div class="card c12"><h3>🧾 Trades clos</h3><div class="desc">Du plus récent au plus ancien, résultat en R.</div><div class="scroll"><table id="trades"></table></div></div></div>
+</section>
+<section id="methode">
+ <div class="steps">
+  <div class="step"><i>01 · STRUCTURE</i><h3>Lire la vague</h3><p>Le moteur repère les vagues d'Elliott (impulsion 1-2-3-4-5, correction A-B-C) sur l'unité journalière et 4 h. Pas de structure claire : pas de signal.</p></div>
+  <div class="step"><i>02 · ZONE</i><h3>Zone d'achat Fibonacci</h3><p>Fin de vague 2 : 50 à 61,8 % de la vague 1. Fin de vague 4 : 23,6 à 50 %. Fin de correction C : selon la figure. Fibonacci en échelle logarithmique.</p></div>
+  <div class="step"><i>03 · DÉCLENCHEUR</i><h3>Attendre le retournement</h3><p>« ATTENTE » = le prix approche ou touche la zone. « ACHAT » = la zone tient et un signal de retournement est confirmé. On n'anticipe pas.</p></div>
+  <div class="step"><i>04 · RISQUE</i><h3>1 % et R ≥ 3</h3><p>Chaque position risque 1 % du capital. Le premier objectif doit rapporter au moins 3 fois le risque, sinon pas d'entrée. Pas de levier.</p></div>
+  <div class="step"><i>05 · SORTIES</i><h3>Stop fixe, TP1 · TP2 · TP3</h3><p>Stop juste sous l'invalidation de la structure, jamais déplacé. Objectifs = extensions de Fibonacci de la méthode, sortie par parts égales.</p></div>
+  <div class="step"><i>06 · SPOT</i><h3>Spot ≠ Trading</h3><p>Spot : accumulation par paliers dans la zone journalière, l'invalidation déclenche une revue, pas une vente automatique. Trading : entrée, stop et objectifs stricts.</p></div>
+  <div class="step"><i>STATUTS</i><h3>Comment lire un signal</h3><p><span class="pill buy">ACHAT</span> signal confirmé · <span class="pill wait">ATTENTE</span> zone en approche · <span class="pill sell">INVALIDÉ</span> structure cassée, le compte est faux.</p></div>
+  <div class="step"><i>TRANSPARENCE</i><h3>Tout est mesuré</h3><p>Chaque signal est suivi en simulation (labo papier, DÉMO) et les gains comme les pertes sont publiés dans l'onglet Résultats.</p></div>
+ </div>
+</section>
+</main>
+<div class="zoom" id="zoom"><button type="button" id="fermer">Fermer ✕</button><img alt="Projection structurelle agrandie" id="zimg"></div>
+<footer class="wrap">Éducatif, pas un conseil financier. Les résultats affichés sont des simulations : aucun argent réel n'est engagé par ces signaux. Niveaux calculés automatiquement par le moteur KAIROS ; aucune promesse de résultat. Mise à jour toutes les 4 h environ.</footer>
 <script>
-const T={"genere":"2026-10-02T20:42:36","image":"2026-10-02T20:40:10","configurations":[{"actif":"AVAX","prix":10.624,"unites":{"1d":{"statut":"INVALIDÉ","configuration":"fin de vague 4 — achat pour la vague 5","invalidation":11.282,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":11.029,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"BNB","prix":762.53,"unites":{"1d":{"statut":"ATTENTE","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":703.62,"tradable":true,"entree_max":753.76794426,"stop":700.1019,"rr_tp1":3.37,"raison":null,"zone":{"bas":741.61991713,"haut":753.76794426},"tp":[{"nom":"TP1","prix":937.75217711,"regle":"EL-09"},{"nom":"TP2","prix":988.39670828,"regle":"EL-09"},{"nom":"TP3","prix":1076.1853067,"regle":"EL-09"}]},"4h":{"statut":"INVALIDÉ","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":756.83,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"ATTENDRE","paliers":[753.76794426,741.61991713]}},{"actif":"BTC","prix":84135.64,"unites":{"1d":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"ATTENTE","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":74967.97,"tradable":true,"entree_max":80943.65921238,"stop":74593.13015,"rr_tp1":3.86,"raison":null,"zone":{"bas":79491.80566315,"haut":80943.65921238},"tp":[{"nom":"TP1","prix":105819.86036294,"regle":"EL-09"},{"nom":"TP2","prix":112205.4095272,"regle":"EL-09"},{"nom":"TP3","prix":123361.98506809,"regle":"EL-09"}]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"DOGE","prix":0.09127,"unites":{"1d":{"statut":"ATTENTE","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":0.08434,"tradable":true,"entree_max":0.08592331,"stop":0.0839183,"rr_tp1":9.51,"raison":null,"zone":{"bas":0.08450868,"haut":0.08592331},"tp":[{"nom":"TP1","prix":0.10589,"regle":"EL-23"},{"nom":"TP2","prix":null,"regle":null},{"nom":"TP3","prix":null,"regle":null}]},"4h":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"ATTENDRE","paliers":[0.08592331]}},{"actif":"ENA","prix":0.2335,"unites":{"1d":{"statut":"ATTENTE","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":0.20626246351521457,"tradable":true,"entree_max":0.2273459,"stop":0.20523115,"rr_tp1":3.0,"raison":null,"zone":{"bas":0.22215667,"haut":0.23215081},"tp":[{"nom":"TP1","prix":0.2946,"regle":"EL-23"},{"nom":"TP2","prix":null,"regle":null},{"nom":"TP3","prix":null,"regle":null}]},"4h":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"ATTENDRE","paliers":[0.23215081,0.22215667]}},{"actif":"ETH","prix":2656.39,"unites":{"1d":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":2665.99,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"ATTENTE","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":2635.69,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":"aucun prix de la zone ne donne R ≥ 3.00 (MM-07)","zone":{"bas":2684.69170618,"haut":2719.70908284},"tp":[]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"HYPE","prix":87.77,"unites":{"1d":{"statut":"ATTENTE","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":75.11,"tradable":true,"entree_max":85.79936538,"stop":74.73445,"rr_tp1":3.97,"raison":null,"zone":{"bas":83.14698495,"haut":85.79936538},"tp":[{"nom":"TP1","prix":130.11145569,"regle":"EL-09"},{"nom":"TP2","prix":144.0337538,"regle":"EL-09"},{"nom":"TP3","prix":169.78063869,"regle":"EL-09"}]},"4h":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":89.1,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"ATTENDRE","paliers":[85.79936538,83.14698495]}},{"actif":"LINK","prix":13.389,"unites":{"1d":{"statut":"ATTENTE","configuration":"fin de vague 4 — achat pour la vague 5","invalidation":13.321,"tradable":true,"entree_max":13.96636203,"stop":13.254395,"rr_tp1":3.0,"raison":null,"zone":{"bas":13.72869495,"haut":14.76379233},"tp":[{"nom":"TP1","prix":16.15815651,"regle":"EL-11"},{"nom":"TP2","prix":17.60650592,"regle":"EL-11"},{"nom":"TP3","prix":20.22958674,"regle":"EL-11"}]},"4h":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"ATTENDRE","paliers":[14.76379233,14.18206577,13.72869495]}},{"actif":"NEAR","prix":4.623,"unites":{"1d":{"statut":"INVALIDÉ","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":4.732,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":4.963,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"ONDO","prix":0.4746,"unites":{"1d":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":0.4917,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"SOL","prix":117.68,"unites":{"1d":{"statut":"INVALIDÉ","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":97.38,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"ATTENTE","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":117.36,"tradable":true,"entree_max":118.40143933,"stop":116.7732,"rr_tp1":3.0,"raison":null,"zone":{"bas":117.61381421,"haut":119.92477864},"tp":[{"nom":"TP1","prix":123.76,"regle":"EL-28"},{"nom":"TP2","prix":null,"regle":null},{"nom":"TP3","prix":null,"regle":null}]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"SUI","prix":1.1162,"unites":{"1d":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":1.1296,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":1.1986,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"TAO","prix":286.25,"unites":{"1d":{"statut":"ATTENTE","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":263.36146935126595,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":"aucun prix de la zone ne donne R ≥ 3.00 (MM-07)","zone":{"bas":290.67533701,"haut":308.9572785},"tp":[]},"4h":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"ATTENDRE","paliers":[308.9572785,290.67533701]}},{"actif":"XRP","prix":1.4618,"unites":{"1d":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"INVALIDÉ","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":1.4764,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}}],"papier":{"stats":{"zone":{"trades":0,"gagnants":0,"perdants":0,"winrate":null,"r_moyen":null,"r_total":0},"strict":{"trades":0,"gagnants":0,"perdants":0,"winrate":null,"r_moyen":null,"r_total":0},"ouvertes":{"strict":0,"zone":0}},"ouvertes":[],"dernieres":[],"courbes":{"strict":[],"zone":[]}},"demo":{"bilan":{"trades":2,"gagnants":0,"perdants":2,"winrate":0.0,"r_moyen":-1.0,"r_total":-2.0},"courbe":[{"t":"2026-09-28T06:08:44+00:00","r":-1.0},{"t":"2026-09-28T22:08:44+00:00","r":-2.0}],"ouvertes":[{"actif":"TAO","unite":"1d","setup_type":"V2","entree":319.6,"sl":247.357,"tp":432.25812376,"ts":"2026-09-26T22:08:30+00:00"},{"actif":"SUI","unite":"4h","setup_type":"V2","entree":1.1611,"sl":1.086739,"tp":1.29545444,"ts":"2026-09-30T10:08:44+00:00"},{"actif":"BNB","unite":"1d","setup_type":"V2","entree":769.63,"sl":700.1019,"tp":937.75217711,"ts":"2026-09-30T14:08:49+00:00"}],"dernieres":[{"actif":"DOGE","unite":"4h","setup_type":"V2","raison":"SL","r":-1.0,"ts":"2026-09-28T06:08:44+00:00"},{"actif":"NEAR","unite":"4h","setup_type":"V2","raison":"SL","r":-1.0,"ts":"2026-09-28T22:08:44+00:00"}]},"strategie2":{"bilan":{"trades":13,"gagnants":2,"perdants":11,"winrate":0.154,"r_moyen":-0.385,"r_total":-5.0},"courbe":[{"t":"2026-09-25T04:03:33","r":-1.0},{"t":"2026-09-25T15:03:21","r":-2.0},{"t":"2026-09-25T18:03:20","r":-3.0},{"t":"2026-09-27T21:03:48","r":0.0},{"t":"2026-09-28T02:03:47","r":3.0},{"t":"2026-09-28T06:03:46","r":2.0},{"t":"2026-09-28T12:03:44","r":1.0},{"t":"2026-09-28T17:03:44","r":0.0},{"t":"2026-09-28T17:03:45","r":-1.0},{"t":"2026-09-29T04:03:42","r":-2.0},{"t":"2026-09-29T05:03:42","r":-3.0},{"t":"2026-09-29T05:03:42","r":-4.0},{"t":"2026-09-29T05:03:43","r":-5.0}],"ouvertes":2,"dernieres":[{"actif":"ENA","R":3.0,"mode":"papier","horodatage":"2026-09-27T21:03:48"},{"actif":"SEI","R":3.0,"mode":"papier","horodatage":"2026-09-28T02:03:47"},{"actif":"ICP","R":-1.0,"mode":"papier","horodatage":"2026-09-28T06:03:46"},{"actif":"LINK","R":-1.0,"mode":"papier","horodatage":"2026-09-28T12:03:44"},{"actif":"FET","R":-1.0,"mode":"papier","horodatage":"2026-09-28T17:03:44"},{"actif":"APT","R":-1.0,"mode":"papier","horodatage":"2026-09-28T17:03:45"},{"actif":"SOL","R":-1.0,"mode":"papier","horodatage":"2026-09-29T04:03:42"},{"actif":"LDO","R":-1.0,"mode":"papier","horodatage":"2026-09-29T05:03:42"},{"actif":"NEAR","R":-1.0,"mode":"papier","horodatage":"2026-09-29T05:03:42"},{"actif":"RENDER","R":-1.0,"mode":"papier","horodatage":"2026-09-29T05:03:43"}]}};
+const T={"genere":"2026-10-02T20:47:56","image":"2026-10-02T20:42:41","configurations":[{"actif":"AVAX","prix":10.624,"unites":{"1d":{"statut":"INVALIDÉ","configuration":"fin de vague 4 — achat pour la vague 5","invalidation":11.282,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":11.029,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"BNB","prix":762.53,"unites":{"1d":{"statut":"ATTENTE","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":703.62,"tradable":true,"entree_max":753.76794426,"stop":700.1019,"rr_tp1":3.37,"raison":null,"zone":{"bas":741.61991713,"haut":753.76794426},"tp":[{"nom":"TP1","prix":937.75217711,"regle":"EL-09"},{"nom":"TP2","prix":988.39670828,"regle":"EL-09"},{"nom":"TP3","prix":1076.1853067,"regle":"EL-09"}]},"4h":{"statut":"INVALIDÉ","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":756.83,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"ATTENDRE","paliers":[753.76794426,741.61991713]}},{"actif":"BTC","prix":84135.64,"unites":{"1d":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"ATTENTE","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":74967.97,"tradable":true,"entree_max":80943.65921238,"stop":74593.13015,"rr_tp1":3.86,"raison":null,"zone":{"bas":79491.80566315,"haut":80943.65921238},"tp":[{"nom":"TP1","prix":105819.86036294,"regle":"EL-09"},{"nom":"TP2","prix":112205.4095272,"regle":"EL-09"},{"nom":"TP3","prix":123361.98506809,"regle":"EL-09"}]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"DOGE","prix":0.09127,"unites":{"1d":{"statut":"ATTENTE","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":0.08434,"tradable":true,"entree_max":0.08592331,"stop":0.0839183,"rr_tp1":9.51,"raison":null,"zone":{"bas":0.08450868,"haut":0.08592331},"tp":[{"nom":"TP1","prix":0.10589,"regle":"EL-23"},{"nom":"TP2","prix":null,"regle":null},{"nom":"TP3","prix":null,"regle":null}]},"4h":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"ATTENDRE","paliers":[0.08592331]}},{"actif":"ENA","prix":0.2335,"unites":{"1d":{"statut":"ATTENTE","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":0.20626246351521457,"tradable":true,"entree_max":0.2273459,"stop":0.20523115,"rr_tp1":3.0,"raison":null,"zone":{"bas":0.22215667,"haut":0.23215081},"tp":[{"nom":"TP1","prix":0.2946,"regle":"EL-23"},{"nom":"TP2","prix":null,"regle":null},{"nom":"TP3","prix":null,"regle":null}]},"4h":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"ATTENDRE","paliers":[0.23215081,0.22215667]}},{"actif":"ETH","prix":2656.39,"unites":{"1d":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":2665.99,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"ATTENTE","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":2635.69,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":"aucun prix de la zone ne donne R ≥ 3.00 (MM-07)","zone":{"bas":2684.69170618,"haut":2719.70908284},"tp":[]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"HYPE","prix":87.77,"unites":{"1d":{"statut":"ATTENTE","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":75.11,"tradable":true,"entree_max":85.79936538,"stop":74.73445,"rr_tp1":3.97,"raison":null,"zone":{"bas":83.14698495,"haut":85.79936538},"tp":[{"nom":"TP1","prix":130.11145569,"regle":"EL-09"},{"nom":"TP2","prix":144.0337538,"regle":"EL-09"},{"nom":"TP3","prix":169.78063869,"regle":"EL-09"}]},"4h":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":89.1,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"ATTENDRE","paliers":[85.79936538,83.14698495]}},{"actif":"LINK","prix":13.389,"unites":{"1d":{"statut":"ATTENTE","configuration":"fin de vague 4 — achat pour la vague 5","invalidation":13.321,"tradable":true,"entree_max":13.96636203,"stop":13.254395,"rr_tp1":3.0,"raison":null,"zone":{"bas":13.72869495,"haut":14.76379233},"tp":[{"nom":"TP1","prix":16.15815651,"regle":"EL-11"},{"nom":"TP2","prix":17.60650592,"regle":"EL-11"},{"nom":"TP3","prix":20.22958674,"regle":"EL-11"}]},"4h":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"ATTENDRE","paliers":[14.76379233,14.18206577,13.72869495]}},{"actif":"NEAR","prix":4.623,"unites":{"1d":{"statut":"INVALIDÉ","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":4.732,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":4.963,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"ONDO","prix":0.4746,"unites":{"1d":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":0.4917,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"SOL","prix":117.68,"unites":{"1d":{"statut":"INVALIDÉ","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":97.38,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"ATTENTE","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":117.36,"tradable":true,"entree_max":118.40143933,"stop":116.7732,"rr_tp1":3.0,"raison":null,"zone":{"bas":117.61381421,"haut":119.92477864},"tp":[{"nom":"TP1","prix":123.76,"regle":"EL-28"},{"nom":"TP2","prix":null,"regle":null},{"nom":"TP3","prix":null,"regle":null}]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"SUI","prix":1.1162,"unites":{"1d":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":1.1296,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"INVALIDÉ","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":1.1986,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}},{"actif":"TAO","prix":286.25,"unites":{"1d":{"statut":"ATTENTE","configuration":"fin de correction A-B-C — achat pour le retour à la racine","invalidation":263.36146935126595,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":"aucun prix de la zone ne donne R ≥ 3.00 (MM-07)","zone":{"bas":290.67533701,"haut":308.9572785},"tp":[]},"4h":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"ATTENDRE","paliers":[308.9572785,290.67533701]}},{"actif":"XRP","prix":1.4618,"unites":{"1d":{"statut":"AUCUN SETUP","configuration":null,"invalidation":null,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]},"4h":{"statut":"INVALIDÉ","configuration":"fin de vague 2 — achat pour la vague 3","invalidation":1.4764,"tradable":false,"entree_max":null,"stop":null,"rr_tp1":null,"raison":null,"zone":null,"tp":[]}},"spot":{"statut":"AUCUNE ZONE","paliers":[]}}],"papier":{"stats":{"zone":{"trades":0,"gagnants":0,"perdants":0,"winrate":null,"r_moyen":null,"r_total":0},"strict":{"trades":0,"gagnants":0,"perdants":0,"winrate":null,"r_moyen":null,"r_total":0},"ouvertes":{"strict":0,"zone":0}},"ouvertes":[],"dernieres":[],"courbes":{"strict":[],"zone":[]}},"demo":{"bilan":{"trades":2,"gagnants":0,"perdants":2,"winrate":0.0,"r_moyen":-1.0,"r_total":-2.0},"courbe":[{"t":"2026-09-28T06:08:44+00:00","r":-1.0},{"t":"2026-09-28T22:08:44+00:00","r":-2.0}],"ouvertes":[{"actif":"TAO","unite":"1d","setup_type":"V2","entree":319.6,"sl":247.357,"tp":432.25812376,"ts":"2026-09-26T22:08:30+00:00"},{"actif":"SUI","unite":"4h","setup_type":"V2","entree":1.1611,"sl":1.086739,"tp":1.29545444,"ts":"2026-09-30T10:08:44+00:00"},{"actif":"BNB","unite":"1d","setup_type":"V2","entree":769.63,"sl":700.1019,"tp":937.75217711,"ts":"2026-09-30T14:08:49+00:00"}],"dernieres":[{"actif":"DOGE","unite":"4h","setup_type":"V2","raison":"SL","r":-1.0,"ts":"2026-09-28T06:08:44+00:00"},{"actif":"NEAR","unite":"4h","setup_type":"V2","raison":"SL","r":-1.0,"ts":"2026-09-28T22:08:44+00:00"}]},"strategie2":{"bilan":{"trades":13,"gagnants":2,"perdants":11,"winrate":0.154,"r_moyen":-0.385,"r_total":-5.0},"courbe":[{"t":"2026-09-25T04:03:33","r":-1.0},{"t":"2026-09-25T15:03:21","r":-2.0},{"t":"2026-09-25T18:03:20","r":-3.0},{"t":"2026-09-27T21:03:48","r":0.0},{"t":"2026-09-28T02:03:47","r":3.0},{"t":"2026-09-28T06:03:46","r":2.0},{"t":"2026-09-28T12:03:44","r":1.0},{"t":"2026-09-28T17:03:44","r":0.0},{"t":"2026-09-28T17:03:45","r":-1.0},{"t":"2026-09-29T04:03:42","r":-2.0},{"t":"2026-09-29T05:03:42","r":-3.0},{"t":"2026-09-29T05:03:42","r":-4.0},{"t":"2026-09-29T05:03:43","r":-5.0}],"ouvertes":2,"dernieres":[{"actif":"ENA","R":3.0,"mode":"papier","horodatage":"2026-09-27T21:03:48"},{"actif":"SEI","R":3.0,"mode":"papier","horodatage":"2026-09-28T02:03:47"},{"actif":"ICP","R":-1.0,"mode":"papier","horodatage":"2026-09-28T06:03:46"},{"actif":"LINK","R":-1.0,"mode":"papier","horodatage":"2026-09-28T12:03:44"},{"actif":"FET","R":-1.0,"mode":"papier","horodatage":"2026-09-28T17:03:44"},{"actif":"APT","R":-1.0,"mode":"papier","horodatage":"2026-09-28T17:03:45"},{"actif":"SOL","R":-1.0,"mode":"papier","horodatage":"2026-09-29T04:03:42"},{"actif":"LDO","R":-1.0,"mode":"papier","horodatage":"2026-09-29T05:03:42"},{"actif":"NEAR","R":-1.0,"mode":"papier","horodatage":"2026-09-29T05:03:42"},{"actif":"RENDER","R":-1.0,"mode":"papier","horodatage":"2026-09-29T05:03:43"}]}};
 const $=s=>document.querySelector(s);
-const kf=x=>{ if(x==null) return '—'; const s=x>=1000?Math.round(x).toLocaleString('fr-FR'):x>=10?x.toFixed(2):x>=1?x.toFixed(3):String(+x.toPrecision(4)); return s.replace('.',','); };
-const kpill=s=>`<span class="pill ${({'ACHAT':'buy','ATTENTE':'wait','INVALIDÉ':'sell'})[s]||'disc'}">${s||'—'}</span>`;
-const kpct=w=>w==null?'—':Math.round(w*100)+' %';
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+const kf=x=>{ if(x==null||isNaN(x)) return '—'; const s=x>=1000?Math.round(x).toLocaleString('fr-FR'):x>=10?x.toFixed(2):x>=1?x.toFixed(3):String(+x.toPrecision(4)); return s.replace('.',','); };
+const pct=w=>w==null?'—':Math.round(w*100)+' %';
 const kr=r=>r==null?'—':(r>0?'+':'')+r.toFixed(2).replace('.',',')+' R';
-const kcls=r=>r>0?'pos':r<0?'neg':'';
-const kdate=t=>{ if(t==null) return '—'; const d=new Date(typeof t==='number'?t:String(t).replace(' ','T')); return isNaN(d)?'—':d.toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}); };
-function kbloc(id,titre,sous,b,ouv){ b=b||{};
-  $(id).innerHTML=`<h2>${titre}</h2><div class="desc">${sous}</div><div class="big ${kcls(b.r_total)}">${kpct(b.winrate)}<span style="font-size:11px;color:var(--dim);font-weight:600"> winrate</span></div>
-  <div class="kpi"><span class="l">Trades clos</span><span class="v">${b.trades||0}</span></div>
-  <div class="kpi"><span class="l">Gagnants / perdants</span><span class="v"><span class="pos">${b.gagnants||0}</span> / <span class="neg">${b.perdants||0}</span></span></div>
-  <div class="kpi"><span class="l">R total</span><span class="v ${kcls(b.r_total)}">${kr(b.r_total)}</span></div>
-  <div class="kpi"><span class="l">R moyen / trade</span><span class="v ${kcls(b.r_moyen)}">${kr(b.r_moyen)}</span></div>
-  <div class="kpi"><span class="l">Ouvertes</span><span class="v">${ouv||0}</span></div>`; }
-function kcourbe(series){
-  const W=800,H=230,P=34,N=Math.max(1,...series.map(s=>s.pts.length)), vals=series.flatMap(s=>s.pts.map(p=>p.r)).concat([0,1,-1]);
-  const mn=Math.min(...vals),mx=Math.max(...vals),y=r=>H-22-(r-mn)/((mx-mn)||1)*(H-40),x=i=>P+i/N*(W-P-60);
-  let g=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">`;
-  [mn,0,mx].forEach(v=>{g+=`<line x1="${P}" x2="${W-60}" y1="${y(v)}" y2="${y(v)}" stroke="#1c2850" ${v===0?'':'stroke-dasharray="3 5"'}/><text x="${P-6}" y="${y(v)+4}" fill="#8494c4" font-size="10" text-anchor="end">${(v>0?'+':'')+v.toFixed(1)}</text>`;});
-  series.forEach(s=>{ if(!s.pts.length) return; const pts=[[x(0),y(0)]].concat(s.pts.map((p,i)=>[x(i+1),y(p.r)])), last=pts[pts.length-1];
-    g+=`<polyline points="${pts.map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="${s.c}" stroke-width="2"/><circle cx="${last[0]}" cy="${last[1]}" r="3" fill="${s.c}"/><text x="${last[0]+6}" y="${last[1]+4}" fill="${s.c}" font-size="11" font-weight="700">${kr(s.pts[s.pts.length-1].r)}</text>`; });
-  g+=`<text x="${W-60}" y="${H-4}" fill="#8494c4" font-size="10" text-anchor="end">trades clos →</text></svg>`;
-  return g+`<div style="display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--dim);margin-top:6px">`+series.map(s=>`<span><span class="swatch" style="background:${s.c}"></span>${s.nom} (${s.pts.length})</span>`).join('')+`</div>`;
-}
-$('#maj').textContent='Mis à jour le '+kdate(T.genere);
-const ps=T.papier.stats||{}, ouv=ps.ouvertes||{};
-kbloc('#kZone','🧪 Labo papier — « zone »','Entrée dès que le prix est dans la zone (R ≥ 3).',ps.zone,ouv.zone);
-kbloc('#kStrict','🧪 Labo papier — « strict »','Zone + signal de retournement confirmé.',ps.strict,ouv.strict);
-kbloc('#kDemo','🤖 DÉMO du moteur','Moteur en simulation, cycle toutes les 4 h.',T.demo.bilan,(T.demo.ouvertes||[]).length);
-kbloc('#kS2','⚡ Stratégie 2 — cassure','Stratégie expérimentale suivie à part, comparée.',T.strategie2.bilan,T.strategie2.ouvertes);
-const cz=T.papier.courbes||{};
-$('#kCourbe').innerHTML=kcourbe([{nom:'Papier zone',c:'#3ee4ff',pts:cz.zone||[]},{nom:'Papier strict',c:'#a06bff',pts:cz.strict||[]},{nom:'DÉMO',c:'#25d98a',pts:T.demo.courbe||[]},{nom:'Stratégie 2',c:'#f5b83d',pts:T.strategie2.courbe||[]}]);
-const lo=[...(T.papier.ouvertes||[]).map(p=>`<div class="kpi"><span class="l">Papier ${p.carnet} · <b>${p.actif}</b> ${p.unite}</span><span class="v">${kf(p.entree)} → stop ${kf(p.stop)}</span></div>`),
-  ...(T.demo.ouvertes||[]).map(p=>`<div class="kpi"><span class="l">DÉMO · <b>${p.actif}</b> ${p.unite}</span><span class="v">${kf(p.entree)} → stop ${kf(p.sl)}</span></div>`)];
-$('#kOuv').innerHTML=lo.join('')||'<div class="desc">Aucune position ouverte : les prix sont au-dessus des zones d\'achat.</div>';
-const rang=c=>{const u=Object.values(c.unites);return u.some(x=>x.statut==='ACHAT')?0:u.some(x=>x.tradable)?1:u.some(x=>x.statut==='ATTENTE')?2:3;};
-const rows=[],sans=[];
-[...T.configurations].sort((a,b)=>rang(a)-rang(b)).forEach(c=>{
-  const act=Object.entries(c.unites).filter(([,u])=>u.statut==='ACHAT'||u.statut==='ATTENTE');
-  if(!act.length){sans.push(c.actif);return;}
-  act.forEach(([tf,u])=>{
-    const tp=(u.tp||[]).map(x=>x.prix?kf(x.prix):'—').join(' · ');
-    const sp=tf==='1d'&&c.spot.statut?c.spot.statut.toLowerCase()+((c.spot.paliers||[]).length?' · '+c.spot.paliers.map(kf).join(' / '):''):'—';
-    rows.push(`<tr><td><b>${c.actif}</b></td><td class="r">${kf(c.prix)}</td><td>${tf.toUpperCase()}</td><td>${kpill(u.statut)}</td><td class="cfg">${u.configuration||'—'}</td>
-      <td class="r">${u.zone?kf(u.zone.bas)+' – '+kf(u.zone.haut):'—'}</td><td class="r neg">${kf(u.invalidation)}</td>
-      ${u.tradable?`<td class="r">≤ ${kf(u.entree_max)}</td><td class="r neg">${kf(u.stop)}</td><td class="r pos">${tp}</td><td class="r">${(u.rr_tp1||0).toFixed(1).replace('.',',')}</td>`
-        :`<td colspan="4" style="color:var(--dim);font-size:11px;white-space:normal">pas d'entrée — ${(u.raison||'conditions non réunies').slice(0,90)}</td>`}<td>${sp}</td></tr>`);});
+const cls=r=>r>0?'pos':r<0?'neg':'';
+const date=t=>{ if(t==null) return '—'; const d=new Date(typeof t==='number'?t:String(t).replace(' ','T')); return isNaN(d)?'—':d.toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}); };
+const pill=s=>`<span class="pill ${({'ACHAT':'buy','ATTENTE':'wait','INVALIDÉ':'sell'})[s]||'ok'}">${esc(s||'—')}</span>`;
+
+// ── données ─────────────────────────────────────────────────────────────
+const SIG=[]; const SANS=[];
+T.configurations.forEach(c=>{
+  const act=Object.entries(c.unites||{}).filter(([,u])=>u.statut==='ACHAT'||u.statut==='ATTENTE');
+  if(!act.length){ SANS.push(c.actif); return; }
+  act.forEach(([tf,u])=>SIG.push({actif:c.actif,prix:c.prix,tf,u,spot:tf==='1d'?c.spot:null}));
 });
-$('#kPlans').innerHTML=`<thead><tr><th>Actif</th><th class="r">Prix</th><th>UT</th><th>Statut</th><th>Configuration</th><th class="r">Zone d'achat</th><th class="r">Invalidation</th><th class="r">Entrée</th><th class="r">Stop</th><th class="r">TP1 · TP2 · TP3</th><th class="r">R</th><th>Spot</th></tr></thead><tbody>${rows.join('')}</tbody>`;
-$('#kSans').textContent=sans.length?'Sans configuration valide (aucun niveau inventé) : '+sans.join(', '):'';
-const tr=[...(T.papier.dernieres||[]).map(p=>({t:p.dernier_t,src:'Papier '+p.carnet,a:p.actif+' '+p.unite,typ:p.type,res:p.statut,r:p.r})),
-  ...(T.demo.dernieres||[]).map(p=>({t:p.ts,src:'DÉMO',a:p.actif+' '+p.unite,typ:p.setup_type,res:p.raison,r:p.r})),
-  ...(T.strategie2.dernieres||[]).map(p=>({t:p.horodatage,src:'Stratégie 2',a:p.actif,typ:'cassure',res:p.R>0?'gagné':'stop',r:p.R}))]
-  .sort((a,b)=>new Date(b.t)-new Date(a.t)).slice(0,20);
-$('#kTrades').innerHTML=`<thead><tr><th>Date</th><th>Source</th><th>Actif</th><th>Type</th><th>Sortie</th><th class="r">Résultat</th></tr></thead><tbody>`+
-  (tr.map(x=>`<tr><td>${kdate(x.t)}</td><td>${x.src}</td><td><b>${x.a}</b></td><td>${x.typ||'—'}</td><td>${x.res||'—'}</td><td class="r ${kcls(x.r)}">${kr(x.r)}</td></tr>`).join('')||'<tr><td colspan="6" style="color:var(--dim)">Aucun trade clos.</td></tr>')+'</tbody>';
+const rang=s=>(s.u.statut==='ACHAT'?0:s.u.tradable?1:2)*100-(s.u.rr_tp1||0);
+SIG.sort((a,b)=>rang(a)-rang(b));
+const ps=(T.papier&&T.papier.stats)||{};
+
+// ── en-tête ────────────────────────────────────────────────────────────
+(()=>{ const d=new Date(String(T.genere).replace(' ','T')), h=(Date.now()-d)/36e5;
+  $('#maj').textContent=isNaN(h)?'':(h<1?'mis à jour il y a '+Math.max(1,Math.round(h*60))+' min':h<48?'mis à jour il y a '+Math.round(h)+' h':'mis à jour le '+date(T.genere));
+  if(h>8) $('#dot').classList.add('vieux'); })();
+
+// ── échelle de prix (stop → objectifs), échelle log ──────────────────
+function echelle(s){
+  const u=s.u, z=u.zone||{}, tps=(u.tp||[]).map(x=>x.prix).filter(Boolean);
+  const pts=[s.prix,z.bas,z.haut,u.invalidation,u.stop,...tps].filter(v=>v>0);
+  if(pts.length<3) return '';
+  const lo=Math.log(Math.min(...pts)*0.985), hi=Math.log(Math.max(...pts)*1.015);
+  const X=v=>(2+(Math.log(v)-lo)/(hi-lo)*96).toFixed(2);            // % de la largeur : aucune déformation
+  let g=`<div class="lad" aria-hidden="true"><i class="ax"></i>`;
+  if(u.invalidation) g+=`<i class="dg" style="width:${X(u.invalidation)}%"></i><i class="iv" style="left:${X(u.invalidation)}%" title="invalidation ${kf(u.invalidation)}"></i>`;
+  if(z.bas&&z.haut) g+=`<i class="zn" style="left:${X(z.bas)}%;width:max(4px,${(X(z.haut)-X(z.bas)).toFixed(2)}%)" title="zone ${kf(z.bas)} – ${kf(z.haut)}"></i>`;
+  tps.forEach((v,i)=>{ g+=`<i class="tp" style="left:${X(v)}%" title="TP${i+1} ${kf(v)}"></i><b class="lt" style="left:${X(v)}%">TP${i+1}</b>`; });
+  if(z.bas&&(!s.prix||Math.abs(X(s.prix)-X((z.bas+z.haut)/2))>9)) g+=`<b class="lb zl" style="left:${X((z.bas+z.haut)/2)}%">zone</b>`;
+  if(s.prix) g+=`<i class="px" style="left:${X(s.prix)}%" title="prix ${kf(s.prix)}"></i><b class="lb" style="left:${X(s.prix)}%">prix</b>`;
+  return g+'</div>';
+}
+function carte(s){
+  const u=s.u, z=u.zone||{}, dist=(s.prix&&z.haut)?(s.prix>z.haut?'à '+((s.prix/z.haut-1)*100).toFixed(1).replace('.',',')+' % au-dessus de la zone':s.prix>=z.bas?'dans la zone':'sous la zone'):'';
+  const tps=(u.tp||[]).map((x,i)=>`<div><span>TP${i+1}${x.regle?' · '+esc(x.regle):''}</span><b class="${x.prix?'pos':''}">${kf(x.prix)}</b></div>`).join('');
+  const niveaux=u.tradable?`<div class="lv"><div><span>Entrée ≤</span><b>${kf(u.entree_max)}</b></div><div><span>Stop</span><b class="neg">${kf(u.stop)}</b></div><div><span>R (TP1)</span><b>${(u.rr_tp1||0).toFixed(1).replace('.',',')}</b></div>${tps}</div>`
+    :`<div class="no">Pas d'entrée trading — ${esc((u.raison||'conditions non réunies').slice(0,110))}</div>`;
+  const sp=s.spot&&s.spot.statut?`<div class="spot">Spot : <b>${esc(s.spot.statut.toLowerCase())}</b>${(s.spot.paliers||[]).length?' · paliers <b>'+s.spot.paliers.map(kf).join(' / ')+'</b>':''}</div>`:'';
+  return `<article class="a ${u.tradable?'trad':''}"><div class="ah"><div><div class="nm">${esc(s.actif)}</div><div style="display:flex;gap:5px;margin-top:4px">${pill(u.statut)}<span class="pill ut">${s.tf.toUpperCase()}</span></div></div>
+   <div class="px">${kf(s.prix)} $<small>${dist}</small></div></div>
+   <div class="cfg">${esc(u.configuration||'')}</div>${echelle(s)}
+   <div class="lv"><div style="grid-column:span 2"><span>Zone d'achat · ${s.tf==='1d'?'journalier':'4 heures'}</span><b>${z.bas?kf(z.bas)+' – '+kf(z.haut):'—'}</b></div><div><span>Invalidation</span><b class="neg">${kf(u.invalidation)}</b></div></div>
+   ${niveaux}${sp}</article>`;
+}
+
+// ── aperçu ─────────────────────────────────────────────────────────────
+(()=>{
+  const achats=SIG.filter(s=>s.u.statut==='ACHAT'), trad=SIG.filter(s=>s.u.tradable), z=ps.zone||{}, d=T.demo.bilan||{};
+  const k=(l,v,s,c)=>`<div class="k"><div class="l">${l}</div><div class="v ${c||''}">${v}</div><div class="s">${s}</div></div>`;
+  $('#kpis').innerHTML=k('Configurations',SIG.length,'en zone ou en approche')+k('Achats confirmés',achats.length,'signal de retournement',achats.length?'pos':'')
+    +k('Plans tradables',trad.length,'R ≥ 3 au prix d\'entrée','amb')+k('Labo papier',pct(z.winrate),(z.trades||0)+' trades · '+kr(z.r_total||0),cls(z.r_total))
+    +k('DÉMO du moteur',kr(d.r_total||0),(d.trades||0)+' trades · winrate '+pct(d.winrate),cls(d.r_total));
+  const L=[];
+  if(achats.length) L.push(`<b>Signal d'achat confirmé</b> sur ${achats.map(s=>s.actif+' '+s.tf.toUpperCase()).join(', ')}.`);
+  const att=SIG.filter(s=>s.u.statut==='ATTENTE');
+  if(att.length) L.push(`<b>${att.length} configuration${att.length>1?'s':''} en attente</b> (${att.map(s=>s.actif).filter((v,i,a)=>a.indexOf(v)===i).join(', ')}) : on attend que le prix vienne dans la zone et confirme.`);
+  if(trad.length) L.push(`Les plus intéressantes en rapport gain/risque : ${trad.slice(0,3).map(s=>`<b>${s.actif}</b> (R ${(s.u.rr_tp1||0).toFixed(1).replace('.',',')})`).join(', ')}.`);
+  L.push('Rien ne s\'achète sous une invalidation.');
+  $('#clair').innerHTML=L.join(' ');
+  const top=trad.slice(0,3);
+  $('#nTop').textContent=top.length; $('#top').innerHTML=top.map(carte).join('')||'<div class="vide">Aucun plan tradable pour l\'instant.</div>';
+})();
+
+// ── signaux + filtres ─────────────────────────────────────────────────
+const FILTRES=[['tous','Tous',()=>true],['trad','Tradables',s=>s.u.tradable],['achat','Achat confirmé',s=>s.u.statut==='ACHAT'],['1d','Journalier',s=>s.tf==='1d'],['4h','4 heures',s=>s.tf==='4h']];
+let filtre='tous';
+function dessinerSignaux(){
+  $('#filtres').innerHTML=FILTRES.map(([id,l,f])=>`<button class="chip" aria-pressed="${id===filtre}" data-f="${id}">${l} · ${SIG.filter(f).length}</button>`).join('');
+  const f=FILTRES.find(x=>x[0]===filtre)[2], L=SIG.filter(f);
+  $('#liste').innerHTML=L.map(carte).join('')||'<div class="vide">Aucun signal pour ce filtre.</div>';
+  document.querySelectorAll('#filtres .chip').forEach(b=>b.onclick=()=>{filtre=b.dataset.f;dessinerSignaux();});
+}
+dessinerSignaux();
+$('#sans').innerHTML=SANS.map(a=>`<span class="tag">${esc(a)}</span>`).join('')||'<div class="vide">Tous les actifs suivis ont une configuration.</div>';
+
+// ── résultats ──────────────────────────────────────────────────────────
+function anneau(w,c){ const r=30,C=2*Math.PI*r,v=w==null?0:w;
+  return `<svg class="ring" viewBox="0 0 74 74"><circle cx="37" cy="37" r="${r}" fill="none" stroke="#1a2547" stroke-width="7"/><circle cx="37" cy="37" r="${r}" fill="none" stroke="${c}" stroke-width="7" stroke-linecap="${v>0?'round':'butt'}" stroke-dasharray="${C*v} ${C}" transform="rotate(-90 37 37)"/><text x="37" y="41" fill="#e6ecff" font-size="13" font-weight="800" text-anchor="middle" font-family="JetBrains Mono,monospace">${pct(w)}</text></svg>`; }
+const STRATS=[['🧪 Papier « zone »','Entrée dès que le prix est dans la zone (R ≥ 3).',ps.zone,(ps.ouvertes||{}).zone,'#38e1ff'],
+  ['🧪 Papier « strict »','Zone + signal de retournement confirmé.',ps.strict,(ps.ouvertes||{}).strict,'#9d6bff'],
+  ['🤖 DÉMO du moteur','Le moteur en simulation, cycle toutes les 4 h.',T.demo.bilan,(T.demo.ouvertes||[]).length,'#22d68a'],
+  ['⚡ Stratégie 2','Cassure : stratégie expérimentale suivie à part.',T.strategie2.bilan,T.strategie2.ouvertes,'#f5b83d']];
+$('#strats').innerHTML=STRATS.map(([t,d,b,o,c])=>{ b=b||{}; return `<div class="card c3"><h3>${t}</h3><div class="desc">${d}</div>
+  <div class="st">${anneau(b.winrate,c)}<div><div style="font:700 20px var(--mono)" class="${cls(b.r_total)}">${kr(b.r_total||0)}</div><div class="desc" style="margin:0">R total · ${b.trades||0} trades</div></div></div>
+  <div class="row"><span class="l">Gagnants / perdants</span><span class="v"><span class="pos">${b.gagnants||0}</span> / <span class="neg">${b.perdants||0}</span></span></div>
+  <div class="row"><span class="l">R moyen / trade</span><span class="v ${cls(b.r_moyen)}">${kr(b.r_moyen)}</span></div>
+  <div class="row"><span class="l">Positions ouvertes</span><span class="v">${o||0}</span></div></div>`; }).join('');
+(()=>{ const cz=T.papier.courbes||{}, series=[['Papier zone','#38e1ff',cz.zone||[]],['Papier strict','#9d6bff',cz.strict||[]],['DÉMO','#22d68a',T.demo.courbe||[]],['Stratégie 2','#f5b83d',T.strategie2.courbe||[]]];
+  const W=800,H=250,P=38,N=Math.max(1,...series.map(s=>s[2].length)), vals=series.flatMap(s=>s[2].map(p=>p.r)).concat([0,2,-2]);
+  const mn=Math.min(...vals),mx=Math.max(...vals),y=r=>H-24-(r-mn)/((mx-mn)||1)*(H-44),x=i=>P+i/N*(W-P-70);
+  let g=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">`;
+  const pas=Math.max(1,Math.ceil((mx-mn)/6)); for(let v=Math.ceil(mn/pas)*pas; v<=mx; v+=pas) g+=`<line x1="${P}" x2="${W-70}" y1="${y(v)}" y2="${y(v)}" stroke="${v===0?'#3a4a80':'#141e3d'}" ${v===0?'':'stroke-dasharray="3 5"'}/><text x="${P-7}" y="${y(v)+4}" fill="#5d6994" font-size="10" text-anchor="end">${(v>0?'+':'')+v}</text>`;
+  series.forEach(([n,c,pts])=>{ if(!pts.length) return; const q=[[x(0),y(0)]].concat(pts.map((p,i)=>[x(i+1),y(p.r)])), last=q[q.length-1];
+    g+=`<polyline points="${q.map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="${c}" stroke-width="2.2" stroke-linejoin="round"/><circle cx="${last[0]}" cy="${last[1]}" r="3.5" fill="${c}"/><text x="${last[0]+7}" y="${last[1]+4}" fill="${c}" font-size="11" font-weight="700">${kr(pts[pts.length-1].r)}</text>`; });
+  g+=`<text x="${W-70}" y="${H-5}" fill="#5d6994" font-size="10" text-anchor="end">trades clos →</text></svg>`;
+  $('#courbe').innerHTML=g+`<div class="legend">`+series.map(([n,c,p])=>`<span><span class="sw" style="background:${c}"></span>${n} · ${p.length}</span>`).join('')+'</div>'; })();
+
+// ── historique ─────────────────────────────────────────────────────────
+(()=>{ const o=[...(T.papier.ouvertes||[]).map(p=>[`Papier ${p.carnet}`,p.actif,p.unite,p.type,p.entree,p.stop,p.r]),...(T.demo.ouvertes||[]).map(p=>['DÉMO',p.actif,p.unite,p.setup_type,p.entree,p.sl,null])];
+  $('#ouv').innerHTML=`<thead><tr><th>Source</th><th>Actif</th><th>UT</th><th>Type</th><th class="r">Entrée</th><th class="r">Stop</th></tr></thead><tbody>`+
+   (o.map(r=>`<tr><td>${esc(r[0])}</td><td><b>${esc(r[1])}</b></td><td>${esc((r[2]||'').toUpperCase())}</td><td>${esc(r[3]||'—')}</td><td class="r">${kf(r[4])}</td><td class="r neg">${kf(r[5])}</td></tr>`).join('')||'<tr><td colspan="6" class="vide">Aucune position ouverte : les prix sont au-dessus des zones d\'achat.</td></tr>')+'</tbody>'; })();
+const TR=[...(T.papier.dernieres||[]).map(p=>({t:p.dernier_t,src:'Papier '+p.carnet,a:p.actif+' '+(p.unite||'').toUpperCase(),typ:p.type,res:p.statut,r:p.r})),
+  ...(T.demo.dernieres||[]).map(p=>({t:p.ts,src:'DÉMO',a:p.actif+' '+(p.unite||'').toUpperCase(),typ:p.setup_type,res:p.raison==='SL'?'stop':p.raison,r:p.r})),
+  ...(T.strategie2.dernieres||[]).map(p=>({t:p.horodatage,src:'Stratégie 2',a:p.actif,typ:'cassure',res:p.R>0?'objectif':'stop',r:p.R}))]
+  .sort((a,b)=>new Date(typeof b.t==='number'?b.t:b.t)-new Date(typeof a.t==='number'?a.t:a.t));
+let src='Toutes';
+function dessinerTrades(){
+  const S=['Toutes',...new Set(TR.map(x=>x.src))];
+  $('#srcs').innerHTML=S.map(s=>`<button class="chip" aria-pressed="${s===src}" data-s="${esc(s)}">${esc(s)} · ${s==='Toutes'?TR.length:TR.filter(x=>x.src===s).length}</button>`).join('');
+  const L=TR.filter(x=>src==='Toutes'||x.src===src).slice(0,40);
+  $('#trades').innerHTML=`<thead><tr><th>Date</th><th>Source</th><th>Actif</th><th>Type</th><th>Sortie</th><th class="r">Résultat</th></tr></thead><tbody>`+
+   (L.map(x=>`<tr><td>${date(x.t)}</td><td>${esc(x.src)}</td><td><b>${esc(x.a)}</b></td><td>${esc(x.typ||'—')}</td><td>${esc(x.res||'—')}</td><td class="r ${cls(x.r)}">${kr(x.r)}</td></tr>`).join('')||'<tr><td colspan="6" class="vide">Aucun trade clos.</td></tr>')+'</tbody>';
+  document.querySelectorAll('#srcs .chip').forEach(b=>b.onclick=()=>{src=b.dataset.s;dessinerTrades();});
+}
+dessinerTrades();
+
+// ── onglets (adresse #onglet partageable) ───────────────────────────────
+const ONGLETS=['apercu','signaux','resultats','historique','methode'];
+function montrer(t){ if(!ONGLETS.includes(t)) t='apercu';
+  ONGLETS.forEach(o=>$('#'+o).classList.toggle('on',o===t));
+  document.querySelectorAll('nav button').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.t===t)));
+  if(location.hash!=='#'+t) history.replaceState(null,'','#'+t); }
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{montrer(b.dataset.t);scrollTo({top:0});});
+addEventListener('hashchange',()=>montrer(location.hash.slice(1)));
+montrer(location.hash.slice(1));
+
+// ── zoom de l'image (intégrée dans le tableau local : nouvel onglet) ─────
+const integree=window.parent!==window;
+$('#proj').onclick=()=>{ if(integree) return open($('#proj').src,'_blank','noopener');
+  $('#zimg').src=$('#proj').src; $('#zoom').classList.add('on'); };
+$('#fermer').onclick=()=>$('#zoom').classList.remove('on');
+// ── intégrée en iframe : la page donne sa hauteur au tableau local ──────
+if(integree){ document.body.style.minHeight='0';
+  const h=()=>parent.postMessage({kairosHauteur:$('.top').offsetHeight+$('main').offsetHeight+$('footer').offsetHeight+4},'*');
+  new ResizeObserver(h).observe($('main')); addEventListener('load',h); h(); }
 </script></body></html>
